@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="main.js"></script>
+    
+</head>
+<body>
+    <div class="header">
+        <h2>Welcome To Todo List</h1>
+        <button class="btn btn-danger" onclick="LogOut()">Logout</button>
+    
+        </div>
+    <div class="container">
+        <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content" style="background-color: yellow;border:2px solid red;">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Change Your Text</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <label>Enter Text</label>
+            <input id="NewText" style="width:90%;margin:1rem;" placeholder="Enter..">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="EditItmFunc()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        <div class="Main col-md-4">
+            <h2>Create Items:-</h2>
+            <input id="ItemText" style="width:80%;margin:1rem;" placeholder="Enter..">
+            <button class="btn btn-primary" onclick="createTodoItem()">Add New Item</button>
+            
+
+        </div>
+        <div class="Main3 col-md-6">
+            <h2>My Todo items:-</h2>
+            <ul id="itemList">
+                <!-- <li>
+                    1.My name is shubham.
+                    <span style="position: absolute;right:10px;top:10px"><i class="fa-solid fa-trash"></i></span>
+                  
+                </li> -->
+               
+                <!-- lisst item -->
+
+
+            </ul>
+
+
+
+        </div>
+    </div>
+
+    <script>
+           window.onload = function() {
+ 
+ var receivedData = localStorage.getItem('token');
+ console.log("receevw",receivedData);
+ GetTodoItemFunc(receivedData)
+};
+function setItemId(itemId){
+   localStorage.setItem('itemId',itemId);
+   console.log(itemId)
+}
+function deleteItmFunc(itemId){
+    var receivedData = localStorage.getItem('token');
+ console.log("receevw",receivedData);
+   var todoId = localStorage.getItem('todoId');
+   console.log(todoId,itemId);
+   fetch('http://todo-api.aavaz.biz/todos/'+todoId+'/items/'+itemId+'', {
+   method: 'DELETE', 
+    headers: {
+      "Accept": "*/*",
+      "Authorization": receivedData
+    }}).then(response=>{
+      console.log(response)
+      GetTodoItemFunc(receivedData)
+      
+      })
+
+}
+function EditItmFunc(){
+    var itemId=localStorage.getItem('itemId')
+    var ItemText = document.getElementById("NewText")
+    var receivedData = localStorage.getItem('token');
+ console.log("receevw",receivedData);
+   var todoId = localStorage.getItem('todoId');
+   console.log(todoId,itemId);
+
+   fetch(' http://todo-api.aavaz.biz/todos/'+todoId+'/items/'+itemId+'', {
+   method: 'PUT', 
+    headers: {
+      "Content-Type": "application/json ",
+      "Accept": "*/*",
+      "Authorization": receivedData
+    },body: JSON.stringify({ 
+    itemText:ItemText
+    })
+}).then(response=>{
+      alert('item sucessfully edited.')
+      GetTodoItemFunc(receivedData);
+      
+      })
+
+}
+
+
+    </script>
+
+    
+    
+</body>
+</html>
