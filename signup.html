@@ -17,9 +17,7 @@
         border-top-left-radius: 0.5rem;
         border-top-right-radius: 0.5rem;
       }
-      body{
-        background-color: aqua;
-      }
+      
   
       @media (min-width: 992px) {
         .rounded-tr-lg-0 {
@@ -33,7 +31,7 @@
     </style>
     <div class="row">
       <div class="col-md-6" style="margin: 0 auto;">
-        <div class="card mb-3" style="margin-top: 5rem;margin:5rem auto;background-color: yellow;text-align: center;">
+        <div class="card mb-3" style="margin-top: 5rem;margin:5rem auto;background-color: #ffff00d1;text-align: center;">
           <div class="row g-0 d-flex align-items-center">
        
           
@@ -80,7 +78,7 @@
 
 var value1 = document.getElementById('input1').value;
 var value2 = document.getElementById('input2').value;
-fetch('http://todo-api.aavaz.biz/signup', {
+fetch('https://todo-api.aavaz.biz/signup', {
 method: 'POST',  
 headers: {
 "Content-Type": "application/json ",
