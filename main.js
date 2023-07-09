@@ -2,7 +2,7 @@ function loginfuncCall(){
 
     var value1 = document.getElementById('input1').value;
     var value2 = document.getElementById('input2').value;
-  fetch('https://todo-api.aavaz.biz/login', {
+  fetch('http://todo-api.aavaz.biz/login', {
   method: 'POST',  
   headers: {
     "Content-Type": "application/json ",
